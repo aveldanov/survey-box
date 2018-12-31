@@ -23,11 +23,12 @@ passport.deserializeUser((id, done) => {
 });
 
 
-// initiate passport auth (two args)
+// initiate passport auth (two args) --> drops back to http from https because of the relative path (google strategy issue)
 passport.use(new GoogleStrategy({
   clientID: keys.googleClientID,
   clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback'
+  callbackURL: '/auth/google/callback',
+  proxy: true
 },
   (accessToken, refreshToken, profile, done) => {
     // done - tells Passport we are complete it can continue with authentication
