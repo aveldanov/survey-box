@@ -30,25 +30,28 @@ passport.use(new GoogleStrategy({
   callbackURL: '/auth/google/callback',
   proxy: true
 },
-  async (accessToken, refreshToken, profile, done) => {
+  (accessToken, refreshToken, profile, done) => {
     // done - tells Passport we are complete it can continue with authentication
-    const existingUser = await User.findOne({
+    User.findOne({
       googleId: profile.id
     })
-    if (existingUser) {
-      // we already have a record with this profile.id
-      // null means - no issues to record
-      return done(null, existingUser);
-    }
-    //no such user - make a record
-    //create a new instance of a User
-    const user = await new User({
-      googleId: profile.id
-    })
-      .save()
-    done(null, user)
-
-
+      .then((existingUser) => {
+        if (existingUser) {
+          // we already have a record with this profile.id
+          // null means - no issues to record
+          done(null, existingUser);
+        } else {
+          //no such user - make a record
+          //create a new instance of a User
+          new User({
+            googleId: profile.id
+          })
+            .save()
+            .then(user => {
+              done(null, user)
+            })
+        }
+      })
 
 
 
