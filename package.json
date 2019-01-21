@@ -12,7 +12,8 @@
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "webhook": "lt -p 4000 -s aveldanovdomain"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "concurrently": "^4.1.0",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.4",
+    "localtunnel": "^1.9.1",
     "mongoose": "^5.4.1",
     "nodemon": "^1.18.9",
     "passport": "^0.4.0",
