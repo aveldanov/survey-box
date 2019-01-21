@@ -9,7 +9,7 @@ class SurveyNew extends Component {
       <div>
         <SurveyForm />
       </div>
-    )
+    );
   }
 }
 
