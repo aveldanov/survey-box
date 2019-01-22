@@ -1,0 +1,19 @@
+email = 'test@test.com';
+choice = 'yes' || 'no';
+
+
+Survey.updateOne({
+  id:surveyId,
+  recipients:{
+    $elemMatch:{
+      email:email,
+      responded:false
+    }
+  }
+},{
+  //update with this!
+  // inc - increment by 1
+  // set - sets the property to true
+  $inc: { [choice]: 1 },
+  $set: { 'recipients.$.responded':true}
+});
